@@ -165,7 +165,8 @@ bool read_file(const std::string& path, std::string* content) {
     content->clear();
 
     android::base::unique_fd fd(
-        TEMP_FAILURE_RETRY(open(path.c_str(), O_RDONLY | O_NOFOLLOW | O_CLOEXEC)));
+    // Allow symlinks in Mer
+        TEMP_FAILURE_RETRY(open(path.c_str(), O_RDONLY | O_CLOEXEC)));
     if (fd == -1) {
         return false;
     }
